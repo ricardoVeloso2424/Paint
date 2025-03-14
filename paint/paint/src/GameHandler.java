@@ -112,11 +112,16 @@ public class GameHandler implements KeyboardHandler {
                 try {
                     CopyPasteFile.saveFile(gridState);
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    System.out.println(e.getMessage());;
                 }
                 break;
             case KeyboardEvent.KEY_L:
-                Grid.loadGrid(gridState);
+                try {
+                    gridState = CopyPasteFile.loadFile(); // FIXED: Correctly load saved state
+                    Grid.loadGrid(gridState); // Apply loaded state to the grid
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
                 break;
         }
 
